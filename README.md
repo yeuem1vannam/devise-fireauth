@@ -1,28 +1,61 @@
-# Devise::Fireauth
+# Devise Firebase authentication
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/devise/fireauth`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A strategy to use Google Firebase as the authentication service behind the already famous authentication solution: [devise](https://github.com/plataformatec/devise)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'devise-fireauth'
+gem "devise-fireauth"
 ```
 
 And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install devise-fireauth
+```bash
+$ bundle install
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+- Get your Firebse's Web API Key, then add a configuration section into the devise's initializer
+```ruby
+# config/initializers/devise.rb
+Devise.setup do |config|
+  # Other configuration
+  config.authentication_keys = [
+    # Other keys, ex: email
+    :id_token
+  ]
+  config.strip_whitespace_keys = [
+    # Other keys, ex: email
+    :id_token
+  ]
+  config.fireauth do |f|
+    f.api_key = "YoUR-weB-aPi-KEy"
+    f.token_key = :id_token
+  end
+end
+```
+- Modify your `User` model
+  - Use `firebase_authenticatable` strategy for devise
+  - Implement a class method `User.from_firebase` to find the corresponding user from your system. Example
+```ruby
+# app/models/user.rb
+class User < ApplicationRecord
+  devise :firebase_authenticatable
+  class << self
+    def from_firebase(auth_hash)
+      # Find or create new user with auth_hash["email"]
+      # Update user name with auth_hash["displayName"]
+      # Return a user to allow login, or nil to reject
+    end
+  end
+end
+```
+
+- Restart the server
+- From now on, you can authenticate with the API via firebase `idToken`
+- There is a full example of how to get firebase `idToken` and use it to authenticate with API lives in [spec/dummy/app/views/devise/sessions/new.html.haml](https://github.com/yeuem1vannam/devise-fireauth/blob/7bf5276b7b319fc6a5015cac597cd0aa708da3d7/spec/dummy/app/views/devise/sessions/new.html.haml#L32-L38)
 
 ## Development
 
@@ -32,7 +65,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/devise-fireauth. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/yeuem1vannam/devise-fireauth. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -40,4 +73,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Devise::Fireauth project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/devise-fireauth/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the `devise-fireauth` project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/yeuem1vannam/devise-fireauth/blob/master/CODE_OF_CONDUCT.md).
