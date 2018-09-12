@@ -2,9 +2,21 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= content_for?(:title) ? yield(:title) : 'Dummy'
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Dummy'}"}
+    %title= content_for?(:title) ? yield(:title) : 'Myapp'
+    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Myapp'}"}
     = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag "https://www.gstatic.com/firebasejs/5.4.2/firebase-app.js"
+    = javascript_include_tag "https://www.gstatic.com/firebasejs/5.4.2/firebase-auth.js"
+    :javascript
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCoIfpUCKUmhJ5pA9-yaYljmmBfC0SaPWU",
+        authDomain: "ums-auth-kit.firebaseapp.com",
+        projectId: "ums-auth-kit",
+      };
+      firebase.initializeApp(config);
+    = javascript_include_tag "https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"
+    = stylesheet_link_tag "https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css"
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body

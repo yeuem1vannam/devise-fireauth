@@ -24,7 +24,7 @@ group :test do
   gem 'chromedriver-helper'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 4.0.0'
 gem 'devise'
 gem 'haml-rails'
 gem 'high_voltage'
@@ -53,5 +53,5 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
-
-gem "devise-fireauth", path: "../../"
+gem 'httparty'
+gem 'devise-fireauth', path: '../../'

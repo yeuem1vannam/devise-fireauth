@@ -1,4 +1,4 @@
-Dummy
+Myapp
 ================
 
 Rails Composer is supported by developers who purchase our RailsApps tutorials.
@@ -25,7 +25,7 @@ choose  Enter your selection: [rspec]
 option  Continuous testing?
 choose  Enter your selection: [guard]
 option  Front-end framework?
-choose  Enter your selection: [bootstrap3]
+choose  Enter your selection: [bootstrap4]
 option  Add support for sending email?
 choose  Enter your selection: [none]
 option  Authentication?
@@ -37,7 +37,7 @@ choose  Enter your selection: []
 option  Authorization?
 choose  Enter your selection: [none]
 option  Use a form builder gem?
-choose  Enter your selection: [none]
+choose  Enter your selection: []
 option  Add pages?
 choose  Enter your selection: [about+users]
 option  Set a locale?

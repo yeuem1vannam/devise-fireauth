@@ -8,8 +8,8 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'b95ee02b6f37c94c73e71fd855808247c6ef758312a1a246dca901d0543c1f0f36796e6caf3d5101cb6a75ceaaecf1dd5b468ee64bf6d5112e609ba9346674c6'
-  
+  # config.secret_key = 'e5ea1ed17362c67c73ecc44c3837b6cb391419182001b7e06c3e1b288130535b239802ddcb15a1441ed42ffcccce012576c930bdb1b2287d38bc010dda19395d'
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -40,7 +40,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  # config.authentication_keys = [:email]
+  config.authentication_keys = [:id_token]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -57,7 +57,7 @@ Devise.setup do |config|
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email]
+  config.strip_whitespace_keys = [:id_token]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -114,7 +114,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '931f0cc40c5df55762a49afb9d319fcf0465851a47cb69df753bf95fa63448317a6df2b20a86529964198ee6aca1f544898d2463a5dde8c767019310f94f9e97'
+  # config.pepper = '3e17fe3317f508368bab4799eee8f42c85a914c5667714d787b4a10eecb63a87994439fdc15add73809e8994d3cd5a2845114b2a6e8c50671c57b8986051d557'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -266,6 +266,9 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+  config.fireauth do |c|
+    c.api_key = Rails.application.credentials[:firebase][:api_key]
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
