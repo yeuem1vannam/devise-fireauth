@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "active_support/concern"
+require "httparty"
 
 module Devise
   module Models
