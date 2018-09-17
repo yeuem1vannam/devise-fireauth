@@ -361,7 +361,6 @@ DEPENDENCIES
   haml-rails
   high_voltage
   html2haml
-  httparty
   jbuilder (~> 2.5)
   jquery-rails
   launchy
