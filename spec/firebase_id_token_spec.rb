@@ -19,7 +19,7 @@ RSpec.describe FirebaseIDToken::Validator do
     let(:iss) { "https://securetoken.google.com/#{project_id}" }
     let(:exp) { Time.now + 10 }
 
-    let(:payload) {{
+    let(:payload) { {
       exp: exp.to_i,
       iss: iss,
       aud: aud,
