@@ -21,13 +21,14 @@ module FirebaseIDToken
     include MonitorMixin
 
     GOOGLE_CERTS_URI = "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+    GOOGLE_ISSUER_PREFIX = "https://securetoken.google.com/" # Has a trailing `/'
     GOOGLE_CERTS_EXPIRY = 3600 # 1 hour
 
     def initialize(aud:, expiry: GOOGLE_CERTS_EXPIRY)
       super()
 
       @aud = aud.to_s
-      @iss = "https://securetoken.google.com/#{aud}"
+      @iss = "#{GOOGLE_ISSUER_PREFIX}#{aud}"
       @certs_expiry = expiry
       @certs = {}
     end
@@ -76,7 +77,12 @@ module FirebaseIDToken
       @certs.detect do |key, cert|
         begin
           public_key = cert.public_key
-          decoded_token = JWT.decode(token, public_key, !!public_key, { algorithm: "RS256" })
+          decoded_token = JWT.decode(
+            token,
+            public_key,
+            !!public_key,
+            { algorithm: "RS256", kid: key }
+          )
           payload = decoded_token.first
 
           payload
