@@ -2,10 +2,12 @@
 require "devise"
 require "dry-configurable"
 require "devise/fireauth/version"
+require_relative "../firebase_id_token"
 
 module Devise
   def self.fireauth
     yield(Devise::Fireauth.config)
+    Devise::Fireauth.firebase_validator = FirebaseIDToken::Validator.new(aud: Devise::Fireauth.project_id)
   end
 
   warden do |manager|
@@ -19,8 +21,10 @@ module Devise
 
     setting :api_key, reader: true
     setting :token_key, :id_token, reader: true
-    # TODO
-    # - project_id: for verifying aud / iss
+    setting :project_id, reader: true
+
+    # Firebase Validator
+    mattr_accessor :firebase_validator
   end
 
   # Those modules must be loaded after Fireauth configuration done

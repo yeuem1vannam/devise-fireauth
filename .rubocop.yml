@@ -1,0 +1,15 @@
+require: rubocop-rspec
+inherit_gem:
+  rubocop-github:
+    - config/default.yml
+    - config/rails.yml
+AllCops:
+  Exclude:
+    - gemfiles/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - spec/dummy/**/*
+GitHub/RailsControllerRenderLiteral:
+  Enabled: false
+GitHub/RailsControllerRenderPathsExist:
+  Enabled: false
