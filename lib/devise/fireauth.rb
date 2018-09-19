@@ -25,7 +25,6 @@ module Devise
 
     # Firebase Validator
     mattr_accessor :firebase_validator
-    @@firebase_validator = Fireauth.project_id
   end
 
   # Those modules must be loaded after Fireauth configuration done

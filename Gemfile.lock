@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    devise-fireauth (0.1.0.pre.alpha.1)
+    devise-fireauth (0.0.1.pre.alpha.1)
       activesupport (>= 4)
       devise (~> 4.0)
       dry-configurable
