@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "active_support/concern"
-require "httparty"
 
 module Devise
   module Models
@@ -12,7 +11,6 @@ module Devise
       end
 
       module ClassMethods
-        FIREBASE_USER_INFO_URL = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=#{Fireauth.api_key}"
         ####################################
         # Overriden methods from Devise::Models::Authenticatable
         ####################################
@@ -63,25 +61,11 @@ module Devise
 
         private
 
-        # TODO:
-        # Verify the correct token
-        # https://firebase.google.com/docs/auth/admin/verify-id-tokens#retrieve_id_tokens_on_clients
         def firebase_verification(id_token)
-          firebase_verification_call = HTTParty.post(
-            FIREBASE_USER_INFO_URL,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: {
-              'idToken': id_token
-            }.to_json
-          )
-          if firebase_verification_call.response.code == "200"
-            firebase_infos = firebase_verification_call.parsed_response
-            firebase_infos["users"][0]
-          else
-            {}
-          end
+          Fireauth.firebase_validator.check id_token
+        rescue => e
+          puts e.message
+          {}
         end
       end
     end

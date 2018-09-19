@@ -268,6 +268,7 @@ Devise.setup do |config|
   # end
   config.fireauth do |c|
     c.api_key = Rails.application.credentials[:firebase][:api_key]
+    c.project_id = Rails.application.credentials[:firebase][:project_id]
   end
 
   # ==> Mountable engine configurations
