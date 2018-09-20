@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "pry"
 
 module Devise
   module Strategies

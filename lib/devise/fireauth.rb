@@ -10,11 +10,11 @@ module Devise
     Devise::Fireauth.firebase_validator = FirebaseIDToken::Validator.new(aud: Devise::Fireauth.project_id)
   end
 
-  warden do |manager|
-    manager.strategies.add(:firebase_authenticatable, Devise::Strategies::FirebaseAuthenticatable)
-    manager.default_strategies(scope: :user).unshift :firebase_authenticatable
-  end
-  add_module :firebase_authenticatable, controller: :sessions, route: { session: :routes }
+  # warden do |manager|
+  #   manager.strategies.add(:firebase_authenticatable, Devise::Strategies::FirebaseAuthenticatable)
+  #   manager.default_strategies(scope: :user).unshift :firebase_authenticatable
+  # end
+  # add_module :firebase_authenticatable, controller: :sessions, route: { session: :routes }
 
   module Fireauth
     extend Dry::Configurable
@@ -40,7 +40,13 @@ module Devise
 
   # TODO: verify the correct way to add strategies to warden
   warden do |manager|
-    manager.strategies.add(:firebase_authenticatable, Devise::Strategies::FirebaseAuthenticatable)
+    manager.strategies.add :firebase_authenticatable,
+      Devise::Strategies::FirebaseAuthenticatable
+    manager.default_strategies(scope: :user).unshift :firebase_authenticatable
   end
-  add_module :firebase_authenticatable, controller: :sessions, route: { session: :routes }
+  add_module :firebase_authenticatable,
+    controller: :sessions, route: { session: :routes }
 end
+
+require "devise/fireauth/railtie"
+require_relative "../warden/fireauth/strategy"

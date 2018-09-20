@@ -40,6 +40,11 @@ module Devise
           [record.id]
         end
 
+        def from_firebase(auth_hash)
+          raise NotImplementedError,
+            "#{self.name} model must implement class method `from_firebase'"
+        end
+
         #
         # Here you do the request to the external webservice
         #
@@ -51,10 +56,6 @@ module Devise
         def firebase_authentication(auth_params)
           auth_hash = firebase_verification(auth_params[Fireauth.token_key])
           return nil if auth_hash.empty?
-          unless defined? self.from_firebase
-            raise NotImplementedError,
-              "#{self.name} model must implement class method `from_firebase'"
-          end
           # Create new user here and return user
           self.from_firebase(auth_hash)
         end
