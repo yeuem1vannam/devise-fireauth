@@ -32,6 +32,7 @@ Devise.setup do |config|
   ]
   config.fireauth do |f|
     f.api_key = "YoUR-weB-aPi-KEy"
+    f.project_id = "firebase-project-id"
     f.token_key = :id_token
   end
 end
@@ -54,8 +55,9 @@ end
 ```
 
 - Restart the server
-- From now on, you can authenticate with the API via firebase `idToken`
-- There is a full example of how to get firebase `idToken` and use it to authenticate with API lives in [spec/dummy/app/views/devise/sessions/new.html.haml](https://github.com/yeuem1vannam/devise-fireauth/blob/7bf5276b7b319fc6a5015cac597cd0aa708da3d7/spec/dummy/app/views/devise/sessions/new.html.haml#L32-L38)
+- From now on, you can authenticate with the API via firebase `idToken` by one of:
+  - Add params `id_token` to URL query
+  - Attach the header `Authorization: Bearer #{id_token}` to the request
 
 ## Development
 

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  devise :firebase_authenticatable, :rememberable
+  devise :firebase_authenticatable
 
   class << self
     # {

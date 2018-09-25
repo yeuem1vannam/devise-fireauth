@@ -1,11 +1,12 @@
 PATH
   remote: .
   specs:
-    devise-fireauth (0.0.1.pre.alpha.1)
+    devise-fireauth (0.1.0.rc1)
       activesupport (>= 4)
       devise (~> 4.0)
       dry-configurable
       jwt (>= 1)
+      warden
 
 GEM
   remote: https://rubygems.org/
@@ -131,6 +132,7 @@ DEPENDENCIES
   fakeweb
   openssl
   pry
+  railties (>= 4)
   rake (~> 10.0)
   rspec (~> 3.0)
   rubocop-github

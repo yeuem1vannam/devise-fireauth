@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "devise", "~> 4.0"
   spec.add_runtime_dependency "dry-configurable"
   spec.add_runtime_dependency "jwt", ">= 1"
+  spec.add_runtime_dependency "warden"
 
   spec.add_development_dependency "activemodel" # required by devise
   spec.add_development_dependency "bundler", "~> 1.16"
@@ -33,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "openssl"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "railties", ">= 4"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rubocop-github"
   spec.add_development_dependency "rubocop-rspec"

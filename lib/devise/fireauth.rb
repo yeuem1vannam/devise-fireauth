@@ -10,12 +10,6 @@ module Devise
     Devise::Fireauth.firebase_validator = FirebaseIDToken::Validator.new(aud: Devise::Fireauth.project_id)
   end
 
-  warden do |manager|
-    manager.strategies.add(:firebase_authenticatable, Devise::Strategies::FirebaseAuthenticatable)
-    manager.default_strategies(scope: :user).unshift :firebase_authenticatable
-  end
-  add_module :firebase_authenticatable, controller: :sessions, route: { session: :routes }
-
   module Fireauth
     extend Dry::Configurable
 
@@ -38,9 +32,13 @@ module Devise
       "devise/fireauth/strategies/firebase_authenticatable"
   end
 
-  # TODO: verify the correct way to add strategies to warden
   warden do |manager|
-    manager.strategies.add(:firebase_authenticatable, Devise::Strategies::FirebaseAuthenticatable)
+    manager.strategies.add :firebase_authenticatable,
+      Devise::Strategies::FirebaseAuthenticatable
+    mappings.keys.each do |scope|
+      manager.default_strategies(scope: scope).unshift :firebase_authenticatable
+    end
   end
-  add_module :firebase_authenticatable, controller: :sessions, route: { session: :routes }
+  add_module :firebase_authenticatable,
+    controller: :sessions, route: { session: :routes }
 end
