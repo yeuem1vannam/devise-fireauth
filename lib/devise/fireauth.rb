@@ -3,7 +3,6 @@ require "devise"
 require "dry-configurable"
 require "devise/fireauth/version"
 require_relative "../firebase_id_token"
-require_relative "../warden/fireauth/strategy"
 
 module Devise
   def self.fireauth
@@ -33,15 +32,11 @@ module Devise
       "devise/fireauth/strategies/firebase_authenticatable"
   end
 
-  # TODO: verify the correct way to add strategies to warden
   warden do |manager|
     manager.strategies.add :firebase_authenticatable,
       Devise::Strategies::FirebaseAuthenticatable
-    manager.strategies.add :firebase_jwt,
-      Warden::Fireauth::Strategy
     mappings.keys.each do |scope|
-      manager.default_strategies(scope: scope).push :firebase_authenticatable
-      manager.default_strategies(scope: scope).unshift :firebase_jwt
+      manager.default_strategies(scope: scope).unshift :firebase_authenticatable
     end
   end
   add_module :firebase_authenticatable,

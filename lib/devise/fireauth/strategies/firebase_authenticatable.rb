@@ -3,6 +3,10 @@
 module Devise
   module Strategies
     class FirebaseAuthenticatable < Authenticatable
+      def valid?
+        !token.nil?
+      end
+
       # Don't use Session
       def store?
         false
@@ -14,18 +18,10 @@ module Devise
       #
       def authenticate!
         #
-        # authentication_hash doesn't include the password
-        #
-        auth_params = authentication_hash
-        unless auth_params[Fireauth.token_key]
-          return fail!("Auth params missing #{Fireauth.token_key}")
-        end
-
-        #
         # mapping.to is a wrapper over the resource model
         #
         # Treat the password as idToken
-        resource = mapping.to.firebase_authentication(auth_params)
+        resource = mapping.to.firebase_authentication(token)
 
         return fail! unless resource
 
@@ -40,6 +36,29 @@ module Devise
         if validate(resource)
           success!(resource)
         end
+      end
+
+      def authenticate
+        resource = mapping.to.firebase_authentication(token)
+        # If authenticated, stop immediately - or continue
+        resource ? success!(resource) : fail(resource)
+      end
+
+      private
+
+      def token
+        token_from_headers || token_from_params
+      end
+
+      def token_from_headers
+        authorization_header = env["HTTP_AUTHORIZATION"]
+        return unless authorization_header
+        type, token = authorization_header.split
+        type =~ /Bearer/i ? token : nil
+      end
+
+      def token_from_params
+        params.dig Devise::Fireauth.token_key
       end
     end
   end
