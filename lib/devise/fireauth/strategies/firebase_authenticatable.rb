@@ -1,9 +1,12 @@
 # frozen_string_literal: true
-require "pry"
 
 module Devise
   module Strategies
     class FirebaseAuthenticatable < Authenticatable
+      # Don't use Session
+      def store?
+        false
+      end
       #
       # For an example check : https://github.com/plataformatec/devise/blob/master/lib/devise/strategies/database_authenticatable.rb
       #
@@ -14,7 +17,9 @@ module Devise
         # authentication_hash doesn't include the password
         #
         auth_params = authentication_hash
-        return fail! unless auth_params[Fireauth.token_key]
+        unless auth_params[Fireauth.token_key]
+          return fail!("Auth params missing #{Fireauth.token_key}")
+        end
 
         #
         # mapping.to is a wrapper over the resource model

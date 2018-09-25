@@ -1,5 +1,4 @@
 require "warden"
-require "pry"
 
 module Warden
   module Fireauth
@@ -44,5 +43,3 @@ module Warden
     end
   end
 end
-
-Warden::Strategies.add(:firebase_jwt, Warden::Fireauth::Strategy)
