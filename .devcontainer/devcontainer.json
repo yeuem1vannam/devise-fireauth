@@ -1,0 +1,27 @@
+{
+  "name": "devise_fireauth/root",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "root",
+  "runServices": ["root"],
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "extensions": [
+    "rebornix.Ruby",
+    "castwide.solargraph",
+    "MS-vsliveshare.vsliveshare"
+  ],
+  "settings": {
+    "editor.autoIndent": "advanced",
+    "editor.links": true,
+    "editor.rulers": [80, 120],
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
+    "ruby.useBundler": true,
+    "ruby.useLanguageServer": true
+  }
+}
