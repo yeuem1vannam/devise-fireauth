@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require "spec_helper"
 require "fakeweb"
 require "openssl"
 require "jwt"
@@ -28,7 +27,8 @@ RSpec.describe FirebaseIDToken::Validator do
       email: "test@gmail.com",
       provider_id: "google.com",
       verified: true
-    }}
+    }
+    }
 
     let(:token) { JWT.encode(payload, @key, "RS256") }
 
@@ -142,7 +142,7 @@ RSpec.describe FirebaseIDToken::Validator do
     cert.serial = 0x0
     cert.version = 2
 
-    cert.sign key, OpenSSL::Digest::SHA1.new
+    cert.sign key, OpenSSL::Digest::SHA256.new
 
     { key: key, cert: cert }
   end

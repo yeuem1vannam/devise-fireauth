@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -28,14 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "jwt", ">= 1"
   spec.add_runtime_dependency "warden"
 
-  spec.add_development_dependency "activemodel" # required by devise
   spec.add_development_dependency "bundler", "~> 2.3"
-  spec.add_development_dependency "fakeweb"
-  spec.add_development_dependency "openssl"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "railties", ">= 4"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "rubocop-github"
-  spec.add_development_dependency "rubocop-rspec"
 end
