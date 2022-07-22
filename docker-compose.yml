@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  root:
+    tty: true
+    container_name: root.devise_fireauth
+    hostname: root.devise_fireauth
+    working_dir: /workspace
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile.ruby
+    volumes:
+      - root-vscode-server:/root/.vscode-server
+      - .:/workspace
+volumes:
+  root-vscode-server: {}
