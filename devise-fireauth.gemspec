@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "activesupport", ">= 4"
   spec.add_runtime_dependency "devise", "~> 4.0"
-  spec.add_runtime_dependency "dry-configurable"
+  spec.add_runtime_dependency "dry-configurable", ">= 0.13"
   spec.add_runtime_dependency "jwt", ">= 1"
   spec.add_runtime_dependency "warden"
 
