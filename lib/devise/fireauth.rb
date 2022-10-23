@@ -14,7 +14,7 @@ module Devise
     extend Dry::Configurable
 
     setting :api_key, reader: true
-    setting :token_key, :id_token, reader: true
+    setting :token_key, default: :id_token, reader: true
     setting :project_id, reader: true
 
     # Firebase Validator
