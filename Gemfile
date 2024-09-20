@@ -11,7 +11,7 @@ group :development, :test do
   gem "faker"
   gem "fakeweb"
   gem "pry-rails"
-  gem "puma", "~> 5.0"
+  gem "puma", "~> 5.6"
   gem "rails", "~> 6.1.4"
   gem "rspec-rails"
   gem "solargraph", require: false
