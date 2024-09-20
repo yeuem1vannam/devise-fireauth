@@ -157,7 +157,7 @@ GEM
     minitest (5.17.0)
     msgpack (1.5.3)
     nenv (0.3.0)
-    nio4r (2.5.8)
+    nio4r (2.7.3)
     nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
@@ -173,7 +173,7 @@ GEM
       method_source (~> 1.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    puma (5.6.4)
+    puma (5.6.9)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.6.3)
@@ -335,7 +335,7 @@ DEPENDENCIES
   guard-rspec
   listen (~> 3.3)
   pry-rails
-  puma (~> 5.0)
+  puma (~> 5.6)
   rails (~> 6.1.4)
   rails-erd
   rspec-rails
